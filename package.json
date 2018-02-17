@@ -1,0 +1,11 @@
+{
+  "name": "rabbitmq-message-producer",
+  "version": "0.1.0",
+  "author": "David Levayer <david dot levayer at gmail.com>",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.2"
+  }
+}
