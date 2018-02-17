@@ -1,0 +1,11 @@
+# Intellij
+.idea/
+
+# Config files
+config.json
+package-lock.json
+
+# Dependencies
+node_modules
+
+
