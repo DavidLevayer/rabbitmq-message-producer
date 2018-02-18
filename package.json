@@ -6,6 +6,7 @@
     "start": "node ./index.js"
   },
   "dependencies": {
-    "amqplib": "^0.5.2"
+    "amqplib": "^0.5.2",
+    "progress": "^2.0.0"
   }
 }

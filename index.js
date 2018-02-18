@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const amqp = require('amqplib/callback_api');
+const ProgressBar = require('progress');
 const config = require('./config');
 
 const serverUrl = `${config.rabbitmq.protocol}://${config.rabbitmq.hostname}`;
@@ -14,15 +15,21 @@ amqp.connect(serverUrl, function (err, conn) {
 
         ch.assertExchange(exchangeName, 'direct', config.rabbitmq.options);
 
-        let counter = 0;
+        let bar = new ProgressBar('  Sending [:bar] :rate message/s :percent', {
+            complete: '=',
+            incomplete: ' ',
+            width: 20,
+            total: config.message.number
+        });
         let templateIndex = 0;
+
         const repeat = setInterval(function () {
 
             const msg = injectArgs(messageTemplates[templateIndex].pattern, messageTemplates[templateIndex].values);
             ch.publish(exchangeName, routingKey, new Buffer(msg));
-            console.log("%d - [x] Sent %s", counter, msg);
+            bar.tick();
 
-            if (++counter >= config.message.number) {
+            if (bar.complete) {
                 clearInterval(repeat);
                 // Leave some time to send the last message
                 setTimeout(() => {
