@@ -16,14 +16,20 @@ amqp.connect(serverUrl, function(err, conn) {
 
         ch.assertExchange(exchangeName, 'direct', config.rabbitmq.options);
 
-        for(let i=0; i<config.message.number; i++) {
+        let counter = 0;
+
+        const repeat = setInterval(function() {
             const msg = injectArgs(messageTemplate, values);
             ch.publish(exchangeName, routingKey, new Buffer(msg));
-            console.log("%d - [x] Sent %s", i, msg);
-        }
-    });
+            console.log("%d - [x] Sent %s", counter, msg);
 
-    setTimeout(function() { conn.close(); process.exit(0) }, 500);
+            if(++counter >= config.message.number) {
+                clearInterval(repeat);
+                conn.close();
+                process.exit(0);
+            }
+        }, config.message.delay);
+    });
 });
 
 const injectArgs = function(rawTemplate, values) {
