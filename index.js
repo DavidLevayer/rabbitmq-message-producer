@@ -5,49 +5,53 @@ const config = require('./config');
 
 const serverUrl = `${config.rabbitmq.protocol}://${config.rabbitmq.hostname}`;
 
-amqp.connect(serverUrl, function(err, conn) {
-    conn.createChannel(function(err, ch) {
+amqp.connect(serverUrl, function (err, conn) {
+    conn.createChannel(function (err, ch) {
 
         const exchangeName = config.rabbitmq.exchangeName;
         const routingKey = config.rabbitmq.routingKey;
-
-        const messageTemplate = config.message.template;
-        const values = config.message.values;
+        const messageTemplates = config.message.templates;
 
         ch.assertExchange(exchangeName, 'direct', config.rabbitmq.options);
 
         let counter = 0;
+        let templateIndex = 0;
+        const repeat = setInterval(function () {
 
-        const repeat = setInterval(function() {
-            const msg = injectArgs(messageTemplate, values);
+            const msg = injectArgs(messageTemplates[templateIndex].pattern, messageTemplates[templateIndex].values);
             ch.publish(exchangeName, routingKey, new Buffer(msg));
             console.log("%d - [x] Sent %s", counter, msg);
 
-            if(++counter >= config.message.number) {
+            if (++counter >= config.message.number) {
                 clearInterval(repeat);
-                conn.close();
-                process.exit(0);
+                // Leave some time to send the last message
+                setTimeout(() => {
+                    conn.close();
+                    process.exit(0);
+                }, 500);
             }
+
+            templateIndex = (templateIndex + 1) % messageTemplates.length;
         }, config.message.delay);
     });
 });
 
-const injectArgs = function(rawTemplate, values) {
-  let pattern = /%([0-9]+)%/;
+const injectArgs = function (rawTemplate, values) {
+    let pattern = /%([0-9]+)%/;
 
-  return rawTemplate.replace(pattern, function(a, match) {
-      const value = values[match];
+    return rawTemplate.replace(pattern, function (a, match) {
+        const value = values[match];
 
-      let replacement = '';
-      if(typeof value === 'object') {
-          replacement = getRandomInt(value);
-      }
+        let replacement = '';
+        if (typeof value === 'object') {
+            replacement = getRandomInt(value);
+        }
 
-      return replacement;
-  });
+        return replacement;
+    });
 };
 
-const getRandomInt = function(param) {
+const getRandomInt = function (param) {
     const min = param.min;
     const max = param.max;
 
