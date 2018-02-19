@@ -4,7 +4,7 @@ const amqp = require('amqplib/callback_api');
 const ProgressBar = require('progress');
 const config = require('./config');
 
-const serverUrl = `${config.rabbitmq.protocol}://${config.rabbitmq.hostname}`;
+const serverUrl = `${config.rabbitmq.protocol}://${config.rabbitmq.user}:${config.rabbitmq.password}@${config.rabbitmq.hostname}`;
 
 amqp.connect(serverUrl, function (err, conn) {
     conn.createChannel(function (err, ch) {
