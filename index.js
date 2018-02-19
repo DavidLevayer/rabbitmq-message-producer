@@ -44,7 +44,7 @@ amqp.connect(serverUrl, function (err, conn) {
 });
 
 const injectArgs = function (rawTemplate, values) {
-    let pattern = /%([0-9]+)%/;
+    let pattern = /%([0-9]+)%/g;
 
     return rawTemplate.replace(pattern, function (a, match) {
         const value = values[match];
