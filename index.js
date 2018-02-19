@@ -13,7 +13,7 @@ amqp.connect(serverUrl, function (err, conn) {
         const routingKey = config.rabbitmq.routingKey;
         const messageTemplates = config.message.templates;
 
-        ch.assertExchange(exchangeName, 'direct', config.rabbitmq.options);
+        ch.assertExchange(exchangeName, config.rabbitmq.exchangeType, config.rabbitmq.options);
 
         let bar = new ProgressBar('  Sending [:bar] :rate message/s :percent', {
             complete: '=',
