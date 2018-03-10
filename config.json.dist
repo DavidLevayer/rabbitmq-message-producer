@@ -1,0 +1,41 @@
+{
+  "rabbitmq": {
+    "protocol": "amqp",
+    "hostname": "localhost",
+    "user": "guest",
+    "password": "guest",
+    "exchangeName": "my.exchange",
+    "exchangeType": "direct",
+    "routingKey": "world",
+    "options": {
+      "durable": true
+    }
+  },
+  "message": {
+    "number": 50,
+    "delay": 0,
+    "templates": [
+      {
+        "pattern": "{\"productId\": %id%, \"productCategory\": \"%category%\", \"productPrice\": %price%}",
+        "values": {
+          "id": {
+            "type": "auto"
+          },
+          "category": {
+            "type": "random",
+            "values": [
+              "fruit",
+              "vegetable",
+              "meat"
+            ]
+          },
+          "price": {
+            "type": "range",
+            "min": 10,
+            "max": 50
+          }
+        }
+      }
+    ]
+  }
+}
