@@ -1,5 +1,5 @@
 # rabbitmq-message-producer 
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/DavidLevayer/rabbitmq-message-producer/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/DavidLevayer/rabbitmq-message-producer/blob/master/LICENSE)
 
 
 > **rabbitmq-message-producer** is a small NodeJS application which help generating RabbitMQ messages to test or debug your application. You can design your template and generate diversified yet coherent messages.
