@@ -63,6 +63,7 @@ Note: `options` can contain any valid option mentioned [here](http://www.squarem
   "templates": []
 }
 ```
+Note: if you set number to 20 and add two templates, you will end up with 10 messages of each message template.
 
 ## Message templates
 
