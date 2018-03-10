@@ -21,7 +21,8 @@ docker stop some-rabbit
 # Start it again
 docker restart some-rabbit
 ```
-Then you can access RabbitMQ web interface at http://
+Then you can access RabbitMQ web interface at [http://localhost:15672/](http://localhost:15672/)
+
 Note: Docker must already be installed on your computer. Please refer to [Docker documentation](https://docs.docker.com/install/).
 
 ## Configuration
