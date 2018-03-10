@@ -12,8 +12,10 @@ First scenario: you already have a RabbitMQ server: just skip this step and go a
 Second scenario: you don't have a RabbitMQ server: you can easily instantiate one using Docker technology:
 
 ```bash
-# Download, create and run your RabbitMQ server
+# Download, create and run your RabbitMQ server in a docker container
 docker run -d --hostname my-rabbit --name some-rabbit -p 4369:4369 -p 5671:5671 -p 5672:5672 -p 15672:15672 rabbitmq
+# Enable RabbitMQ management
+docker exec some-rabbit rabbitmq-plugins enable rabbitmq_management
 # Stop it once you're done (all messages will be lost!)
 docker stop some-rabbit
 # Start it again
