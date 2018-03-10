@@ -83,7 +83,7 @@ const buildProgressBar = (total) => {
 };
 
 const injectArgs = (rawTemplate, values) => {
-    let pattern = /%([0-9]+)%/g;
+    let pattern = /%([0-9a-zA-Z]+)%/g;
 
     return rawTemplate.replace(pattern, function(a, match) {
         const value = values[match];
