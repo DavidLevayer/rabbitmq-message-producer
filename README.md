@@ -2,9 +2,11 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/DavidLevayer/rabbitmq-message-producer/graphs/commit-activity) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/DavidLevayer/rabbitmq-message-producer/blob/master/LICENSE)
 
 
+
 > **rabbitmq-message-producer** is a small NodeJS application which help generating RabbitMQ messages to test or debug your application. You can design your template and generate diversified yet coherent messages.
 
 ## RabbitMQ server
+
 First scenario: you already have a RabbitMQ server: just skip this step and go ahead to the configuration section.
 
 Second scenario: you don't have a RabbitMQ server: you can easily instantiate one using Docker technology:
@@ -21,6 +23,7 @@ Then you can access RabbitMQ web interface at http://
 Note: Docker must already be installed on your computer. Please refer to [Docker documentation](https://docs.docker.com/install/).
 
 ## Configuration
+
 The easiest way to get started is to copy `config.json.dist` file into `config.json`, and then edit it.
 
 Available options:
@@ -103,6 +106,7 @@ Example of generated messages:
 ```
 
 ## Contributions
+
 Feel free to contribute to this project in any way: pull request, issue, etc.
 
 ## License
