@@ -82,24 +82,36 @@ const buildProgressBar = (total) => {
     });
 };
 
-const injectArgs = (rawTemplate, values) => {
+const injectArgs = (rawTemplate, args) => {
     let pattern = /%([0-9a-zA-Z]+)%/g;
 
     return rawTemplate.replace(pattern, function(a, match) {
-        const value = values[match];
+        const arg = args[match];
 
         let replacement = '';
-        if (typeof value === 'object') {
-            replacement = getRandomInt(value);
+        let type = arg.type;
+
+        if('range' === type) {
+            replacement = getNumberBetween(arg.min, arg.max);
+        } else if ('random' === type) {
+            replacement = getRandomValue(arg.values);
+        } else if('auto' === type) {
+            replacement = getAutoIncrement();
         }
 
         return replacement;
     });
 };
 
-const getRandomInt = (param) => {
-    const min = param.min;
-    const max = param.max;
-
+const getNumberBetween = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
+};
+
+const getRandomValue = (values) => {
+    return values[Math.floor(Math.random() * values.length)];
+};
+
+let initialNumber = 0;
+const getAutoIncrement = () => {
+   return initialNumber++;
 };
