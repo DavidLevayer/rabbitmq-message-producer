@@ -25,6 +25,10 @@ Then you can access RabbitMQ web interface at [http://localhost:15672/](http://l
 
 Note: Docker must already be installed on your computer. Please refer to [Docker documentation](https://docs.docker.com/install/).
 
+## NodeJS server
+
+NodeJS v8.9.4 or greater is required to run the application.
+
 ## Configuration
 
 The easiest way to get started is to copy `config.json.dist` file into `config.json`, and then edit it.
