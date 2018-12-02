@@ -16,13 +16,19 @@
     "delay": 0,
     "templates": [
       {
-        "pattern": "{\"productId\": %id%, \"productCategory\": \"%category%\", \"productPrice\": %price%}",
+        "pattern": {
+          "productId": "%id%",
+          "productCategory": "%category%_product",
+          "productPrice": "%price%",
+          "companyName": "John Doe Unlimited",
+          "version": 1
+        },
         "values": {
           "id": {
-            "type": "auto"
+            "fill": "auto"
           },
           "category": {
-            "type": "random",
+            "fill": "random",
             "values": [
               "fruit",
               "vegetable",
@@ -30,7 +36,7 @@
             ]
           },
           "price": {
-            "type": "range",
+            "fill": "range",
             "min": 10,
             "max": 50
           }

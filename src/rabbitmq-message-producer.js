@@ -83,24 +83,58 @@ const buildProgressBar = (total) => {
 };
 
 const injectArgs = (rawTemplate, args) => {
-    let pattern = /%([0-9a-zA-Z]+)%/g;
+    const regex = /%[0-9a-zA-Z]+%/g;
+    const result = {};
 
-    return rawTemplate.replace(pattern, function(a, match) {
-        const arg = args[match];
+    for (let key in rawTemplate) {
+        const rawValue = rawTemplate[key];
 
-        let replacement = '';
-        let type = arg.type;
-
-        if('range' === type) {
-            replacement = getNumberBetween(arg.min, arg.max);
-        } else if ('random' === type) {
-            replacement = getRandomValue(arg.values);
-        } else if('auto' === type) {
-            replacement = getAutoIncrement();
+        if (typeof rawValue !== 'string') {
+            // Do not process number and boolean
+            result[key] = rawValue;
+            continue;
         }
 
-        return replacement;
-    });
+        const matches = rawValue.match(regex);
+
+        if (matches === null || matches.length === 0) {
+            // Do not process strings that shouldn't be modified
+            result[key] = rawValue;
+            continue;
+        }
+
+        matches.forEach(match => {
+            // Remove '%' symbols
+            const argKey = match.substr(1, match.length - 2);
+            const arg = args[argKey];
+            const fillMethod = arg.fill;
+            let replacement;
+
+            switch (fillMethod) {
+                case 'range':
+                    replacement = getNumberBetween(arg.min, arg.max);
+                    break;
+                case 'random':
+                    replacement = getRandomValue(arg.values);
+                    break;
+                case 'auto':
+                    replacement = getAutoIncrement();
+                    break;
+                default:
+                    replacement = '';
+            }
+
+            if (rawValue.length === match.length) {
+                // Keeps replacement type if match is not part of some string
+                result[key] = replacement;
+            } else {
+                result[key] = rawValue.replace(regex, replacement);
+            }
+        });
+
+    }
+
+    return JSON.stringify(result);
 };
 
 const getNumberBetween = (min, max) => {
@@ -113,5 +147,5 @@ const getRandomValue = (values) => {
 
 let initialNumber = 0;
 const getAutoIncrement = () => {
-   return initialNumber++;
+    return initialNumber++;
 };

@@ -37,7 +37,6 @@ Available options:
 
 **rabbitmq**: parameters that should be used to reach your RabbitMQ server.
 ```json
-
 "rabbitmq": {
   "protocol": "amqp",
   "hostname": "localhost",
@@ -60,7 +59,6 @@ Note: `options` can contain any valid option mentioned [here](http://www.squarem
 * **delay**: time to wait between two messages, in milliseconds.
 * **templates**: message templates to use.
 ```json
-
 "message": {
   "number": 50,
   "delay": 0,
@@ -73,7 +71,7 @@ Note: if you set number to 20 and add two templates, you will end up with 10 mes
 
 Each `template` object must have following parameters:
 
-* **pattern**: a string representing JSON object. Values between `%` characters will be replaced following associated rules.
+* **pattern**: a JSON object. Values between `%` characters will be replaced following associated rules.
 * **values**: a JSON object that contains rules to use to replace values between `%` characters.
 
 A short example is often better than a long speech:
@@ -82,7 +80,13 @@ Template example:
 ```json
 "templates": [
   {
-    "pattern": "{\"productId\": %id%, \"productCategory\": \"%category%\", \"productPrice\": %price%}",
+    "pattern": {
+      "productId": "%id%",
+      "productCategory": "%category%_product",
+      "productPrice": "%price%",
+      "companyName": "John Doe Unlimited",
+      "version": 1
+    },
     "values": {
       "id": {
         "type": "auto"
@@ -107,10 +111,10 @@ Template example:
 
 Example of generated messages:
 ```json
-{"productId": 0, "productCategory": "fruit", "productPrice": 23}
-{"productId": 1, "productCategory": "meat", "productPrice": 31}
-{"productId": 2, "productCategory": "meat", "productPrice": 23}
-{"productId": 3, "productCategory": "vegetable", "productPrice": 12}
+{"productId": 0, "productCategory": "fruit_product", "productPrice": 23, "companyName": "John Doe Unlimited", "version": 1}
+{"productId": 1, "productCategory": "meat_product", "productPrice": 31, "companyName": "John Doe Unlimited", "version": 1}
+{"productId": 2, "productCategory": "meat_product", "productPrice": 23, "companyName": "John Doe Unlimited", "version": 1}
+{"productId": 3, "productCategory": "vegetable_product", "productPrice": 12, "companyName": "John Doe Unlimited", "version": 1}
 ```
 
 ## Contributions
