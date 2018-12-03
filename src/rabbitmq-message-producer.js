@@ -120,6 +120,9 @@ const injectArgs = (rawTemplate, args) => {
                 case 'auto':
                     replacement = getAutoIncrement();
                     break;
+                case 'timestamp':
+                    replacement = getTimestamp(arg.inMillis);
+                    break;
                 default:
                     replacement = '';
             }
@@ -143,6 +146,10 @@ const getNumberBetween = (min, max) => {
 
 const getRandomValue = (values) => {
     return values[Math.floor(Math.random() * values.length)];
+};
+
+const getTimestamp = (inMillis) => {
+    return inMillis ? Date.now() : Math.round(Date.now() / 1000);
 };
 
 let initialNumber = 0;
