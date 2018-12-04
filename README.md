@@ -85,6 +85,7 @@ Template example:
       "productCategory": "%category%_product",
       "productPrice": "%price%",
       "companyName": "John Doe Unlimited",
+      "updateTs": "%date%",
       "version": 1
     },
     "values": {
@@ -103,6 +104,10 @@ Template example:
         "type": "range",
         "min": 10,
         "max": 50
+      },
+      "date": {
+        "fill": "timestamp",
+        "inMillis": false
       }
     }
   }
