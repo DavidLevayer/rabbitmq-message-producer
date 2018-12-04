@@ -116,10 +116,10 @@ Template example:
 
 Example of generated messages:
 ```json
-{"productId": 0, "productCategory": "fruit_product", "productPrice": 23, "companyName": "John Doe Unlimited", "version": 1}
-{"productId": 1, "productCategory": "meat_product", "productPrice": 31, "companyName": "John Doe Unlimited", "version": 1}
-{"productId": 2, "productCategory": "meat_product", "productPrice": 23, "companyName": "John Doe Unlimited", "version": 1}
-{"productId": 3, "productCategory": "vegetable_product", "productPrice": 12, "companyName": "John Doe Unlimited", "version": 1}
+{"productId": 0, "productCategory": "fruit_product", "productPrice": 23, "companyName": "John Doe Unlimited", "updateTs": 1543915080, "version": 1}
+{"productId": 1, "productCategory": "meat_product", "productPrice": 31, "companyName": "John Doe Unlimited", "updateTs": 1543915085, "version": 1}
+{"productId": 2, "productCategory": "meat_product", "productPrice": 23, "companyName": "John Doe Unlimited", "updateTs": 1543915090, "version": 1}
+{"productId": 3, "productCategory": "vegetable_product", "productPrice": 12, "companyName": "John Doe Unlimited", "updateTs": 1543915095, "version": 1}
 ```
 
 ## Contributions
